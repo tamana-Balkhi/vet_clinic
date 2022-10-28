@@ -7,3 +7,5 @@ neutered BOOLEAN DEFAULT false,
 weight_kg FLOAT DEFAULT 0
 );
 CREATE TABLE
+
+ALTER TABLE animals ADD species char(50);
