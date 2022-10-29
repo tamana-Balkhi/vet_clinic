@@ -1,6 +1,6 @@
 /*  first day   */
 
-SELECT * FROM animals WHERE name LIKE '%mon%';
+SELECT * FROM animals WHERE name LIKE '%mon';
 SELECT name FROM animals WHERE date_of_birth BETWEEN '2016-01-01' AND '2019-12-31';
 SELECT name FROM animals WHERE neutered = true AND escape_attempt < 3;
 SELECT date_of_birth FROM animals WHERE name = 'Agumon' OR name = 'Pikachu';
@@ -18,7 +18,7 @@ ROLLBACK;
 SELECT * FROM animals;
 
 BEGIN;
-UPDATE animals SET species = 'digimon' WHERE name LIKE '%mon%';
+UPDATE animals SET species = 'digimon' WHERE name LIKE '%mon';
 UPDATE animals SET species = 'pokemon' WHERE species = '';
 SELECT * FROM animals;
 COMMIT;
@@ -47,11 +47,43 @@ SELECT * FROM animals;
 COMMIT;
 
 
+/* What animals belong to Melody Pond? */
+
+SELECT animals FROM animals JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name = 'Melody Pond';
+
+/* List of all animals that are pokemon (their type is Pokemon). */
+
+SELECT animals FROM animals JOIN species ON animals.species_id = species.id WHERE species.name = 'Pokemon';
+
+
+/* List all owners and their animals, remember to include those that don't own any animal. */
+
+SELECT animals, owners.full_name FROM animals JOIN owners ON animals.owner_id = owners.id;
+
+
+/* How many animals are there per species? */
+
+SELECT species.name, COUNT(animals.name) AS count_animals FROM animals JOIN species ON animals.species_id = species.id GROUP BY species.name;
+
+/* List all Digimon owned by Jennifer Orwell. */
+
+SELECT animals.name FROM animals JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name = 'Jennifer Orwell' AND animals.name LIKE '%mon';
+
+/* List all animals owned by Dean Winchester that haven't tried to escape. */
+
+SELECT animals.name FROM animals JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name = 'Dean Winchester' AND animals.escape_attempt = 0;
+
+
+/* Who owns the most animals? */
+
+SELECT owners.full_name, COUNT(animals.name) AS count_animals FROM animals JOIN owners ON animals.owner_id = owners.id GROUP BY owners.full_name ORDER BY COUNT(animals.name) DESC;
+
 /* Analytical questions starts here */
+
 /* How many animals are there? */
 SELECT COUNT(*) FROM animals;
 /*How many animals have never tried to escape?*/
-SELECT COUNT(*) FROM animals WHERE escape_attempts=0;
+SELECT COUNT(*) FROM animals WHERE escape_attempt=0;
 /*What is the average weight of animals?*/
 SELECT AVG(weight_kg) FROM animals;
 /*Who escapes the most, neutered or not neutered animals?*/
