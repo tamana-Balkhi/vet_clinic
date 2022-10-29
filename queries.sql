@@ -1,6 +1,6 @@
 /*  first day   */
 
-SELECT * FROM animals WHERE name LIKE '%mon%';
+SELECT * FROM animals WHERE name LIKE '%mon';
 SELECT name FROM animals WHERE date_of_birth BETWEEN '2016-01-01' AND '2019-12-31';
 SELECT name FROM animals WHERE neutered = true AND escape_attempt < 3;
 SELECT date_of_birth FROM animals WHERE name = 'Agumon' OR name = 'Pikachu';
@@ -46,12 +46,12 @@ WHERE weight_kg < 0;
 SELECT * FROM animals;
 COMMIT;
 
-
 /* Analytical questions starts here */
+
 /* How many animals are there? */
 SELECT COUNT(*) FROM animals;
 /*How many animals have never tried to escape?*/
-SELECT COUNT(*) FROM animals WHERE escape_attempts=0;
+SELECT COUNT(*) FROM animals WHERE escape_attempt=0;
 /*What is the average weight of animals?*/
 SELECT AVG(weight_kg) FROM animals;
 /*Who escapes the most, neutered or not neutered animals?*/
