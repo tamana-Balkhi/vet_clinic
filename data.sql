@@ -55,33 +55,43 @@ UPDATE animals
     SET owner_id = (SELECT id FROM owners WHERE full_name = 'Dean Winchester')
     WHERE name = 'Angemon' OR name =  'Boarmon';
 
-/* What animals belong to Melody Pond? */
-
-SELECT animals FROM animals JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name = 'Melody Pond';
-
-/* List of all animals that are pokemon (their type is Pokemon). */
-
-SELECT animals FROM animals JOIN species ON animals.species_id = species.id WHERE species.name = 'Pokemon';
 
 
-/* List all owners and their animals, remember to include those that don't own any animal. */
+-- Insert data into 'vets' table
 
-SELECT animals, owners.full_name FROM animals JOIN owners ON animals.owner_id = owners.id;
+INSERT INTO vets (name, age, date_of_graduation) 
+  VALUES ('William Tatcher', 45, '2000-04-23'),
+  ('Maisy Smith', 26, '2019-01-17'),
+  ('Stephanie Mendez', 64, '1981-05-04'),
+  ('Jack Harkness', 38, '2008-06-08');
 
+----insert data in specializations----
+  INSERT INTO specializations(vet_id, species_id)
+   VALUES('1', '1'),
+   ('3', '1'),
+   ('3', '2'),
+   ('4', '2');
 
-/* How many animals are there per species? */
-
-SELECT species.name, COUNT(animals.name) AS count_animals FROM animals JOIN species ON animals.species_id = species.id GROUP BY species.name;
-
-/* List all Digimon owned by Jennifer Orwell. */
-
-SELECT animals.name FROM animals JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name = 'Jennifer Orwell' AND animals.name LIKE '%mon';
-
-/* List all animals owned by Dean Winchester that haven't tried to escape. */
-
-SELECT animals.name FROM animals JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name = 'Dean Winchester' AND animals.escape_attempt = 0;
-
-
-/* Who owns the most animals? */
-
-SELECT owners.full_name, COUNT(animals.name) AS count_animals FROM animals JOIN owners ON animals.owner_id = owners.id GROUP BY owners.full_name ORDER BY COUNT(animals.name) DESC;
+----insert data in visits table---
+INSERT INTO visits(animal_id, vet_id, visit_date)
+VALUES
+('1', '1', date '2020-05-24'),
+('1', '3', date '2020-07-22'),
+('2', '4', date '2021-02-02'),
+('3', '2', date '2020-01-05'),
+('3', '2', date '2020-03-08'),
+('3', '2', date '2020-05-14'),
+('4', '3', date '2021-05-04'),
+('5', '4', date '2021-02-24'),
+('6', '2', date '2019-12-21'),
+('6', '1', date '2020-08-10'),
+('6', '2', date '2021-04-07'),
+('7', '3', date '2019-09-29'),
+('8', '4', date '2020-10-03'),
+('8', '4', date '2020-11-04'),
+('9', '2', date '2019-01-24'),
+('9', '2', date '2019-05-15'),
+('9', '2', date '2020-02-27'),
+('9', '2', date '2020-08-03'),
+('10', '3', date '2020-05-24'),
+('10', '1', date '2021-01-11');
