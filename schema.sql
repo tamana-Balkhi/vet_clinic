@@ -65,10 +65,3 @@ CREATE TABLE visits (
     vet_id INT NOT NULL REFERENCES vets(id),
     visit_date DATE NOT NULL
 );
-
-----increase speed----
- DELETE FROM visits ALTER TABLE visits
- ALTER COLUMN visit_date SET DATA TYPE TIMESTAMP WITH TIME ZONE;
- CREATE INDEX animal_id_desc ON visits(animal_id DESC);
- CREATE INDEX vet_id_desc ON visits(vet_id DESC);
- CREATE INDEX owners_email_desec ON owners(email DESC);
